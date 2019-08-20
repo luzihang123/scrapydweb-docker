@@ -1,7 +1,7 @@
 # Scrapydweb Dockerfile
 
 ```bash
-docker build https://github.com/ryanvin/scrapydweb-docker.git#master scrapydweb:latest
+docker build https://github.com/luzihang123/scrapydweb-docker.git#master scrapydweb:latest
 # also: docker pull 52f0b66a/scrapydweb
 docker run --name scrapydweb -e USERNAME <username> \
     -e PASSWORD <password> \
