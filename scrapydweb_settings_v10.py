@@ -184,7 +184,7 @@ DAEMONSTATUS_REFRESH_INTERVAL = 10
 # See step 1~7 above, e.g. 'xoxp-123-456-789-abcde'
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
 # The default channel to use when sending text via slack, e.g. 'general'
-SLACK_CHANNEL = 'general'
+SLACK_CHANNEL = os.getenv('SLACK_CHANNEL', 'general')
 
 ########## telegram ##########
 # How to create a telegram bot:
@@ -205,13 +205,13 @@ TELEGRAM_CHAT_ID = int(os.environ.get('TELEGRAM_CHAT_ID', 0))
 
 ########## email ##########
 # The default subject to use when sending text via email.
-EMAIL_SUBJECT = 'Email from #scrapydweb'
+EMAIL_SUBJECT = os.getenv('EMAIL_SUBJECT', 'Email from #scrapydweb')
 
 ########## email sender & recipients ##########
 # Leave this option as '' to default to the EMAIL_SENDER option below; Otherwise, set it up
 # if your email service provider requires an username which is different from the EMAIL_SENDER option below to login.
 # e.g. 'username'
-EMAIL_USERNAME = ''
+EMAIL_USERNAME = os.getenv('EMAIL_USERNAME', '')
 # As for different email service provider, you might have to get an APP password (like Gmail)
 # or an authorization code (like QQ mail) and set it as the EMAIL_PASSWORD.
 # Check out links below to get more help:
@@ -221,7 +221,7 @@ EMAIL_USERNAME = ''
 EMAIL_PASSWORD = os.environ.get('EMAIL_PASSWORD', '')
 
 # e.g. 'username@gmail.com'
-EMAIL_SENDER = ''
+EMAIL_SENDER = os.getenv('EMAIL_SENDER', '')
 # e.g. ['username@gmail.com', ]
 EMAIL_RECIPIENTS = [EMAIL_SENDER]
 
@@ -232,15 +232,15 @@ EMAIL_RECIPIENTS = [EMAIL_SENDER]
 # Config for https://mail.google.com:           ('smtp.gmail.com', 587, False)
 # Config for https://mail.qq.com using SSL:     ('smtp.qq.com', 465, True)
 # Config for http://mail.10086.cn:              ('smtp.139.com', 25, False)
-SMTP_SERVER = ''
-SMTP_PORT = 0
+SMTP_SERVER = os.getenv('SMTP_SERVER', '')
+SMTP_PORT = int(os.getenv('SMTP_PORT', 0))
 SMTP_OVER_SSL = False
 # The timeout in seconds for the connection attempt, the default is 30.
 SMTP_CONNECTION_TIMEOUT = 30
 
 ############################## Monitor & Alert ################################
 # The default is False, set it to True to launch the poll subprocess to monitor your crawling jobs.
-ENABLE_MONITOR = False
+ENABLE_MONITOR = True
 
 ########## poll interval ##########
 # Tip: In order to be notified (and stop or forcestop a job when triggered) in time,
@@ -258,18 +258,18 @@ POLL_REQUEST_INTERVAL = 10
 
 # The default is False, set it to True to enable alert via Slack, Telegram, or Email.
 # You have to set up your accounts in the "Send text" section above first.
-ENABLE_SLACK_ALERT = False
-ENABLE_TELEGRAM_ALERT = False
-ENABLE_EMAIL_ALERT = False
+ENABLE_SLACK_ALERT = os.getenv('ENABLE_SLACK_ALERT', "True") == "True"  # 启用slack报警
+ENABLE_TELEGRAM_ALERT = os.getenv('ENABLE_TELEGRAM_ALERT', "True") == "False"
+ENABLE_EMAIL_ALERT = os.getenv('ENABLE_EMAIL_ALERT', "True") == "False"
 
 ########## alert working time ##########
 # Monday is 1 and Sunday is 7.
 # e.g, [1, 2, 3, 4, 5, 6, 7]
-ALERT_WORKING_DAYS = []
+ALERT_WORKING_DAYS = [1, 2, 3, 4, 5, 6, 7]
 
 # From 0 to 23.
 # e.g. [9] + list(range(15, 18)) >>> [9, 15, 16, 17], or range(24) for 24 hours
-ALERT_WORKING_HOURS = []
+ALERT_WORKING_HOURS = [9, 15, 16, 17]
 
 ########## basic triggers ##########
 # Trigger alert every N seconds for each running job.
