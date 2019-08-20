@@ -1,14 +1,14 @@
 # coding: utf-8
 """
 How ScrapydWeb works:
-BROWSER <<<>>> SCRAPYDWEB_BIND:SCRAPYDWEB_PORT <<<>>> your
-
+BROWSER <<<>>> SCRAPYDWEB_BIND:SCRAPYDWEB_PORT <<<>>> your SCRAPYD_SERVERS
 
 GitHub: https://github.com/my8100/scrapydweb
 DOCS: https://github.com/my8100/files/blob/master/scrapydweb/README.md
 文档：https://github.com/my8100/files/blob/master/scrapydweb/README_CN.md
 """
 import os
+
 
 ############################## QUICK SETUP start ##############################
 ############################## 快速设置 开始 ###################################
@@ -24,6 +24,7 @@ ENABLE_AUTH = True
 # In order to enable basic auth, both USERNAME and PASSWORD should be non-empty strings.
 USERNAME = os.getenv("USERNAME", 'admin')
 PASSWORD = os.getenv("PASSWORD", 'admin')
+
 
 # Make sure that [Scrapyd](https://github.com/scrapy/scrapyd) has been installed
 # and started on all of your hosts.
@@ -73,7 +74,7 @@ LOCAL_SCRAPYD_LOGS_DIR = ''
 # Note that you can run the LogParser service separately via command 'logparser' as you like.
 # Run 'logparser -h' to find out the config file of LogParser for more advanced settings.
 # Visit https://github.com/my8100/logparser for more info.
-ENABLE_LOGPARSER = True
+ENABLE_LOGPARSER = False
 ############################## QUICK SETUP end ################################
 ############################## 快速设置 结束 ###################################
 
@@ -89,22 +90,26 @@ CERTIFICATE_FILEPATH = ''
 # e.g. '/home/username/cert.key'
 PRIVATEKEY_FILEPATH = ''
 
+
 ############################## Scrapy #########################################
 # ScrapydWeb is able to locate projects in the SCRAPY_PROJECTS_DIR,
 # so that you can simply select a project to deploy, instead of packaging it in advance.
 # e.g. 'C:/Users/username/myprojects' or '/home/username/myprojects'
 SCRAPY_PROJECTS_DIR = ''
 
+
 ############################## Scrapyd ########################################
 # ScrapydWeb would try every extension in sequence to locate the Scrapy logfile.
 # The default is ['.log', '.log.gz', '.txt'].
 SCRAPYD_LOG_EXTENSIONS = ['.log', '.log.gz', '.txt']
+
 
 ############################## LogParser ######################################
 # Whether to backup the stats json files locally after you visit the Stats page of a job
 # so that it is still accessible even if the original logfile has been deleted.
 # The default is True, set it to False to disable this behaviour.
 BACKUP_STATS_JSON_FILE = True
+
 
 ############################## Timer Tasks ####################################
 # Run ScrapydWeb with argument '-sw' or '--switch_scheduler_state', or click the ENABLED|DISABLED button
@@ -115,6 +120,7 @@ BACKUP_STATS_JSON_FILE = True
 # Note that this behaviour would be paused if the scheduler for timer tasks is disabled.
 # Set it to 0 to disable this behaviour.
 JOBS_SNAPSHOT_INTERVAL = 300
+
 
 ############################## Run Spider #####################################
 # The default is False, set it to True to automatically
@@ -146,6 +152,7 @@ SCHEDULE_DOWNLOAD_DELAY = None
 # Use '\r\n' as the line separator.
 SCHEDULE_ADDITIONAL = "-d setting=CLOSESPIDER_TIMEOUT=60\r\n-d setting=CLOSESPIDER_PAGECOUNT=10\r\n-d arg1=val1"
 
+
 ############################## Page Display ###################################
 # The default is True, set it to False to hide the Items page, as well as
 # the Items column in the Jobs page.
@@ -167,6 +174,7 @@ JOBS_RELOAD_INTERVAL = 300
 # The default is 10, set it to 0 to disable auto-refreshing.
 DAEMONSTATUS_REFRESH_INTERVAL = 10
 
+
 ############################## Send Text ######################################
 ########## usage in scrapy projects ##########
 # See the "Send Text" page
@@ -185,7 +193,7 @@ DAEMONSTATUS_REFRESH_INTERVAL = 10
 # See step 1~7 above, e.g. 'xoxp-123-456-789-abcde'
 SLACK_TOKEN = os.environ.get('SLACK_TOKEN', '')
 # The default channel to use when sending text via slack, e.g. 'general'
-SLACK_CHANNEL = os.environ.get('SLACK_CHANNEL', 'spider')  # default:general
+SLACK_CHANNEL = 'general'
 
 ########## telegram ##########
 # How to create a telegram bot:
@@ -239,9 +247,10 @@ SMTP_OVER_SSL = False
 # The timeout in seconds for the connection attempt, the default is 30.
 SMTP_CONNECTION_TIMEOUT = 30
 
+
 ############################## Monitor & Alert ################################
 # The default is False, set it to True to launch the poll subprocess to monitor your crawling jobs.
-ENABLE_MONITOR = True
+ENABLE_MONITOR = False
 
 ########## poll interval ##########
 # Tip: In order to be notified (and stop or forcestop a job when triggered) in time,
@@ -259,18 +268,18 @@ POLL_REQUEST_INTERVAL = 10
 
 # The default is False, set it to True to enable alert via Slack, Telegram, or Email.
 # You have to set up your accounts in the "Send text" section above first.
-ENABLE_SLACK_ALERT = os.getenv("ENABLE_SLACK_ALERT", True)
-ENABLE_TELEGRAM_ALERT = os.getenv("ENABLE_TELEGRAM_ALERT", False)
-ENABLE_EMAIL_ALERT = os.getenv("ENABLE_EMAIL_ALERT", False)
+ENABLE_SLACK_ALERT = False
+ENABLE_TELEGRAM_ALERT = False
+ENABLE_EMAIL_ALERT = False
 
 ########## alert working time ##########
 # Monday is 1 and Sunday is 7.
 # e.g, [1, 2, 3, 4, 5, 6, 7]
-ALERT_WORKING_DAYS = list(os.getenv("ALERT_WORKING_DAYS", [1, 2, 3, 4, 5, 6, 7]))
+ALERT_WORKING_DAYS = []
 
 # From 0 to 23.
 # e.g. [9] + list(range(15, 18)) >>> [9, 15, 16, 17], or range(24) for 24 hours
-ALERT_WORKING_HOURS = list(os.getenv("ALERT_WORKING_HOURS", [9, 15, 16, 17]))
+ALERT_WORKING_HOURS = []
 
 ########## basic triggers ##########
 # Trigger alert every N seconds for each running job.
@@ -321,6 +330,7 @@ LOG_RETRY_TRIGGER_FORCESTOP = False
 LOG_IGNORE_THRESHOLD = 0
 LOG_IGNORE_TRIGGER_STOP = False
 LOG_IGNORE_TRIGGER_FORCESTOP = False
+
 
 ############################## System #########################################
 # The default is False, set it to True to enable debug mode and the interactive debugger
