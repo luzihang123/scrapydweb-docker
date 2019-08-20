@@ -2,7 +2,7 @@
 
 ```bash
 docker build https://github.com/luzihang123/scrapydweb-docker.git#master scrapydweb:latest
-# also: docker pull 52f0b66a/scrapydweb
+# also: docker pull chinaclark1203/scrapydweb
 docker run --name scrapydweb -e USERNAME <username> \
     -e PASSWORD <password> \
     -e SCRAPYD_SERVERS <servers> \
